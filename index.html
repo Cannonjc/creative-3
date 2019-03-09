@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Creative Project 3</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>A simple budget visualizer</h1>
+    <div class="row">
+      <div class='col-md-5'>
+        <form v-on:submit.prevent="changeTotal">
+          <input type="number" step="0.01" placeholder="Enter Total" v-model="total">
+          <button type="submit">Update Total Budget</button>
+        </form>
+        <form v-on:submit.prevent="addExpense">
+          <input type="text" v-model="description" placeholder="Description">
+          <input type="number" step="0.01" placeholder="Cost" v-model="cost">
+          <button type="submit">Add</button>
+        </form>
+      </div>
+      <div class='col-md-2'>
+        <label>Budget Remaining: ${{computedTotal}}</label>
+      </div>
+      <div class='col-md-5'>
+        <ul>
+          <li v-for="expense in expenses" draggable="true" v-on:dragstart="dragExpense(expense)" v-on:dragover.prevent v-on:drop="dropExpense(expense)">
+            <label>{{ expense.description }}: ${{expense.cost}}</label>
+            <button v-on:click="deleteExpense(expense)" class="delete">X</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer>
+		<a class="pull-left" href="https://github.com/BYU-CS-260-Winter-2019/lab-3-Cannonjc">Github Repo</a>
+	</footer>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+  <script src="/script.js"></script>
+</body>
+
+</html>
